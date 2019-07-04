@@ -1,0 +1,28 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="row">
+ <div class="col-md-3">
+   <app-admin></app-admin>
+ </div>
+ <div style="margin-top: 2%" class="col-md-8">
+  <section class="card">
+    <h1>Admin</h1>
+    <h2>Bid change requests list</h2>
+    <table>
+      <tr>
+        <th>Bid name</th>
+        <th>Owner</th>
+        <th>Date of application</th>
+        <th>Request type</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let request of requestsList">
+        <td>{{request.bid.bid_name}}</td>
+        <td>{{request.requester.publicBodyName}}</td>
+        <td>{{request.timeOfRequest | date: 'fullDate'}}</td>
+        <td>{{request.changeType}}</td>
+        <td><button (click)="viewDetail(request._id)" class="btn btn-sm btn-info">Review</button></td>
+      </tr>
+    </table>
+  </section>
+ </div>
+</div>

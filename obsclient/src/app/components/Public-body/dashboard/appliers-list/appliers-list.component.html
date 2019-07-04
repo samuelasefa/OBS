@@ -1,0 +1,158 @@
+<app-navbar></app-navbar>
+<div class="card">
+  <div id='container'>
+    <div class='cell'><input type='search' class="form-control" placeholder='Search for bids......'
+        [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"></div>
+  </div>
+  <div class="header text-center">
+    <p>WEL-COME to Online Bidding</p>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div *ngIf="didCallApi" style="margin: 2%" class="row">
+    <div *ngIf="markingResult " class="alert alert-success">
+      Successfully determined the bid winner
+    </div>
+    <div *ngIf="!markingResult" class="alert alert-danger">
+      Error while determining the bid winner
+    </div>
+  </div>
+  <div *ngIf="appliersCount == 0" class="row" style="margin:2%">
+    <div class="col-sm-5"></div>
+    <div class="col-sm-4">
+      <button *ngIf="!shouldReturn" data-toggle="modal" type="button" data-target="#exampleModal" class="btn btn-lg btn-info">
+        No one has applied, repost
+      </button>
+      <button *ngIf="shouldReturn" (click)="navigateToDashboard()" class="btn btn-lg btn-info">
+        Go to dashboard
+      </button>
+      <!-- <button class="btn btn-lg btn-danger">
+        Cancel
+      </button> -->
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Enter the deadline</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div *ngIf="didCallApiUpdate && updateSuccessful" class="alert alert-success">
+                {{message}}
+              </div>
+              <div *ngIf="didCallApiUpdate && !updateSuccessful" class="alert alert-danger">
+                {{message}}
+              </div>
+            </div>
+            <form >
+              <div class="form-group">
+                <label class="control-label">New deadline</label>
+                <input [(ngModel)]="newDeadline" name="newdeadline" type="date" class="form-control">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button (click)="doRepost()" type="button" class="btn btn-primary" >Submit</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="appliersCount > 0" style="margin: 2%;" class="row">
+    <hr>
+    <div class="col-sm-4">
+      Top bidders ({{applierList.top.length}})
+
+      <table *ngIf="applierList.top.length > 0" class="table">
+        <tr>
+          <th>Company Name</th>
+          <th>Amount of bid</th>
+          <th>Relevant documents</th>
+          <th>Action</th>
+        </tr>
+
+        <tr *ngFor="let bid of applierList.top">
+          <td>{{bid.applier.companyName}}</td>
+          <td>{{bid.amount}}</td>
+          <td>
+            <a download [href]="bid.documentsFiles.bussinessLicense" class="btn btn-sm btn-info">Bussiness license</a>
+            <a download [href]="bid.documentsFiles.cpoScan" class="btn btn-sm btn-info">CPO scan</a>
+            <a download [href]="bid.documentsFiles.bidInformation" class="btn btn-sm btn-info">Bid document</a>
+          </td>
+          <td>
+            <button (click)="markWinner(bid.applier._id)" class="btn btn-success btn-sm">
+              Mark as winner
+            </button>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div class="col-sm-4">
+      Medium bidders ({{applierList.medium.length}})
+
+      <table *ngIf="applierList.medium.length > 0" class="table">
+        <tr>
+          <th>Company Name</th>
+          <th>Amount of bid</th>
+          <th>Relevant documents</th>
+          <th>Action</th>
+        </tr>
+
+        <tr *ngFor="let bid of applierList.medium">
+          <td>{{bid.applier.companyName}}</td>
+          <td>{{bid.amount}}</td>
+          <td>
+            <a download [href]="bid.documentsFiles.bussinessLicense" class="btn btn-sm btn-info">Bussiness license</a>
+            <a download [href]="bid.documentsFiles.cpoScan" class="btn btn-sm btn-info">CPO scan</a>
+            <a download [href]="bid.documentsFiles.bidInformation" class="btn btn-sm btn-info">Bid document</a>
+          </td>
+          <td>
+            <button (click)="markWinner(bid.applier._id)" class="btn btn-success btn-sm">
+              Mark as winner
+            </button>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div class="col-sm-4">
+      Least bidders ({{applierList.least.length}})
+
+      <table *ngIf="applierList.least.length > 0" class="table">
+        <tr>
+          <th>Company Name</th>
+          <th>Amount of bid</th>
+          <th>Relevant documents</th>
+          <th>Action</th>
+        </tr>
+
+        <tr *ngFor="let bid of applierList.least">
+          <td>{{bid.applier.companyName}}</td>
+          <td>{{bid.amount}}</td>
+          <td>
+            <a download [href]="bid.documentsFiles.bussinessLicense" class="btn btn-sm btn-info">Bussiness license</a>
+            <a download [href]="bid.documentsFiles.cpoScan" class="btn btn-sm b  tn-info">CPO scan</a>
+            <a download [href]="bid.documentsFiles.bidInformation" class="btn btn-sm btn-info">Bid document</a>
+          </td>
+          <td>
+            <button (click)="markWinner(bid.applier._id)" class="btn btn-success btn-sm">
+              Mark as winner
+            </button>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+</div>

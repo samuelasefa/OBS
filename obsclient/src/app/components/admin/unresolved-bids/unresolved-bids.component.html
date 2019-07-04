@@ -1,0 +1,38 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="row">
+  <div class="col-md-3">
+    <app-admin></app-admin>
+  </div>
+
+  <div style="margin-top: 2%" class="col-md-8">
+
+    <section class="card">
+      <div *ngIf="didCallApi" class="row">
+        <div *ngIf="success" class="alert alert-success">
+          Alert sent
+        </div>
+        <div *ngIf="!success" class="alert alert-danger">
+          Error while alerting
+        </div>
+      </div>
+      <h2>Unresolved bids</h2>
+      <table class="table">
+        <tr>
+          <th>Bid name</th>
+          <th>Post date</th>
+          <th>Deadline</th>
+          <th>Bidder</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let bid of unresolvedBids">
+          <td>{{bid.bid_name}}</td>
+          <td>{{bid.bid_postdate | date:"fullDate"}}</td>
+          <td>{{bid.bid_deadline | date:"fullDate"}}</td>
+          <td>{{bid.publicBody.publicBodyName}}</td>
+          <td><button (click)="alertBidder(bid.publicBody._id, bid._id)" class="btn btn-sm btn-warning">Alert</button>
+          </td>
+        </tr>
+      </table>
+    </section>
+  </div>
+</div>

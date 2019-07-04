@@ -1,0 +1,53 @@
+<app-sup-navbar></app-sup-navbar>
+<div class="card">
+
+  <div class="header text-center">
+    <p>WEL-COME to Online Bidding</p>
+    <h4>Notifications</h4>
+  </div>
+</div>
+
+
+<div class="PostedBid">
+  <div *ngFor="let notification of notifications">
+    <div class="panelBid">
+      <div *ngIf="notification.reason === 'bidWin'" class="card bg-success">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-12">
+              <div>
+                <strong style="color:white" class="card-title">Congratulations!</strong>
+              </div>
+              <div class="right">
+                <p style="color: white">{{notification.dateTime | date: 'fullDate'}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">You won the bid "{{notification.bid.bid_name}}"
+          </li>
+
+        </ul>
+      </div>
+      <div *ngIf="notification.reason === 'bidClosed'" class="card bg-default">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-12">
+              <div>
+                <strong class="card-title">Bid closed</strong>
+              </div>
+              <div class="right">
+                <p>{{notification.dateTime | date: 'fullDate'}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">The bid "{{notification.bid.bid_name}}" is closed!
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

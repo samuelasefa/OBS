@@ -1,0 +1,76 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="row">
+  <div class="col-md-3">
+    <app-admin></app-admin>
+  </div>
+  <div style="margin-top: 2%" class="col-md-8">
+    <section class="card">
+      <table *ngIf="changeRequest">
+        <tr>
+          <th>Bid info</th>
+          <th>Changed fields</th>
+        </tr>
+        <tr>
+          <td>
+            <table>
+              <tr>
+                <td>Bid name</td>
+                <td>{{changeRequest.bid.bid_name}}</td>
+
+              </tr>
+              <tr>
+                <td>Owner</td>
+                <td>{{changeRequest.requester.publicBodyName}}</td>
+              </tr>
+              <tr>
+                <td>Bid number</td>
+                <td>{{changeRequest.bid.bid_number}}</td>
+              </tr>
+              <tr>
+                <td>Bid description</td>
+                <td>{{changeRequest.bid.bid_desc}}</td>
+              </tr>
+              <tr>
+                <td>Initial bidding amount</td>
+                <td>{{changeRequest.bid.bid_inital}}</td>
+              </tr>
+              <tr>
+                <td>Bid post date</td>
+                <td>{{changeRequest.bid.bid_postdate | date:'fullDate'}}</td>
+              </tr>
+              <tr>
+                <td>Bid deadline</td>
+                <td>{{changeRequest.bid.bid_deadline | date:'fullDate'}}</td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table>
+              <tr><th>Field</th> <th>Value</th></tr>
+              <tr *ngFor="let item of changeRequest.changedFields;">
+                <td>{{getField(item)}}</td>
+                <td>{{getValue(item)}}</td>
+              </tr>
+            </table>
+          </td>
+
+        </tr>
+        <tr>
+          <td>
+            <div *ngIf="approveResonse && approveResonse.success" class="alert alert-success">
+              {{approveResonse.message}}
+            </div>
+            <div *ngIf="approveResonse && !approveResonse.success" class="alert alert-danger">
+                {{approveResonse.message}}
+              </div>
+          </td>
+          <td>
+            <button (click)="doApproveChangeRequest()" class="btn btn-success">Approve</button>
+            <button class="btn btn-danger">Reject</button>
+          </td>
+        </tr>
+      </table>
+    </section>
+
+  </div>
+</div>

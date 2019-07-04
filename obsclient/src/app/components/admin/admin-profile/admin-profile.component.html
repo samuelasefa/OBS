@@ -1,0 +1,41 @@
+<app-admin-navbar></app-admin-navbar>
+<!-- <app-admin></app-admin> -->
+<div class='header'>
+  <div class='header-wrapper'>
+    <div class='info'>
+      <div class='details'>
+        <div class='content-wrapper'>
+          <article>
+            <h2>
+              Profile
+              <span></span>
+            </h2>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button *ngIf="adminuser" [routerLink]="['/editadminprofile']"
+              routerLinkActive="router-link-active"
+              class="btn btn-outline-light btn-sm"><i class=" fa
+              fa-edit"></i>Edit</button>
+            <div class="col-md-12">
+              <section class="card">
+                <table>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                  </tr>
+                  <tr>
+                    <td>{{firstName}}</td>
+                    <td>{{lastName}}</td>
+                    <td>{{email}}</td>
+                    <td>{{phoneNumber}}</td>
+                  </tr>
+                </table>
+              </section>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

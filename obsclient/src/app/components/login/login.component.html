@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <!-- Custom Success/Error Message -->
+  <div id="login-box">
+    <form [formGroup]="form">
+      <div class="row show-hide-message">
+        <div [ngClass]="messageClass">
+          {{ message }}
+        </div>
+      </div>
+      <div class="left">
+        <h1 class="lable text-center">Login</h1>
+        <div *ngIf="unauthorized" class="row">
+          <div class="alert alert-danger">
+            Invalid username or password!
+          </div>
+        </div>
+        <div
+          [ngClass]="{'has-error':(form.controls.email.errors && form.controls.email.dirty),'has-success':!form.controls.email.errors}">
+          <input type="email" class="form-control" name="email" formControlName="email" placeholder="User Name*"
+            autocomplete="off">
+          <ul class="help-block">
+            <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">email field is required</li>
+          </ul>
+        </div>
+        <div
+          [ngClass]="{'has-error':(form.controls.password.errors && form.controls.password.dirty),'has-success':!form.controls.email.errors}">
+          <input type="password" class="form-control" name="password" formControlName="password"
+            placeholder="Type password*" autocomplete="off">
+          <ul class="help-block">
+            <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">password field is
+              required</li>
+          </ul>
+        </div>
+        <a [routerLink]="['/forgot']">Forget Password</a>
+        <input [disabled]="!form.valid || processing" type="submit" (click)="processLogin()" value="Login" />
+
+        <ul>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" style="cursor: pointer;" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" *ngIf="!authService.loggedIn()">
+              <i class="fa fa-users" aria-hidden="true"></i> Create Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" [routerLink]="['/supplier-signup']" style="cursor: pointer;"
+                routerLinkActive="active">Supplier</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" [routerLink]="['/public-signup']" style="cursor: pointer;"
+                routerLinkActive="active">Public Body</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,131 @@
+<app-sup-navbar></app-sup-navbar>
+<div class="continer">
+  <div class="row" style="margin-top: 5%">
+    <h4>My applications</h4>
+  </div>
+  <!-- <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">CompanyName</th>
+          <th scope="col">Transaction Number</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Time of Applciation</th>
+          <th scope="col">Bid Title</th>
+          <th scope="col">Bid Post Date</th>
+          <th scope="col">Bid DeadLine Date</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let apply of applys | paginate: {itemsPerPage: 20, currentPage: p}">
+          <td scope="row">{{apply.companyName}}
+          </td>
+          <td scope="row">{{apply.transaction}}
+          </td>
+          <td scope="row">{{apply.amount}}</td>
+          <td scope="row">{{apply.timeOfApplication | date:'MMM dd, yyyy'}}</td>
+          <td scope="row">{{apply.bid.bid_name}}
+          </td>
+          <td scope="row">{{apply.bid.bid_postdate  | date:'MMM dd, yyyy'}}</td>
+          <td scope="row">{{apply.bid.bid_deadline  | date:'MMM dd, yyyy'}}</td>
+        </tr>
+      </tbody>
+    </table> -->
+
+  <table *ngIf="applys" class="table">
+    <thead>
+      <tr>
+        <!-- <th>Company Name</th> -->
+        <th>Transaction Number</th>
+        <th>Time of Applciation</th>
+        <th>Bid Title</th>
+        <th>Application status</th>
+        <!-- <th>Bid Post Date</th> -->
+        <th>Bid DeadLine Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let apply of applys | paginate: {itemsPerPage: 20, currentPage: p}; let i = index">
+        <!-- <td scope="row">{{apply.companyName}}
+         </td> -->
+        <td scope="row">{{apply.transaction}}
+        </td>
+        <td scope="row">{{apply.timeOfApplication | date:'MMM dd, yyyy'}}</td>
+        <td scope="row">{{apply.bid.bid_name}}
+        </td>
+        <td scope="row">{{apply.status}}, <p *ngIf="apply.areDocumentsSubmitted">bid info submitted</p></td>
+        <!-- <td scope="row">{{apply.bid.bid_postdate  | date:'MMM dd, yyyy'}}</td> -->
+        <td scope="row">{{apply.bid.bid_deadline  | date:'MMM dd, yyyy'}}</td>
+        <td scope="row" *ngIf="apply.status === 'accepted' && !apply.areDocumentsSubmitted">
+          <a download [href]="apply.bid.file" class="btn btn-info btn-sm">Download bid document</a>
+          <button (click)="openSubmissionPanel(apply._id, i)" type="button" class="btn btn-success btn-sm"
+            data-toggle="modal" data-target="#exampleModal">
+            submit bid
+          </button>
+        </td>
+        <td *ngIf="apply.status != 'accepted' || apply.areDocumentsSubmitted" scope="row">
+          No action
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Enter bid information</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div *ngIf="applicationFailure && !applicationSuccess" class="alert alert-danger">
+              {{message}}
+            </div>
+            <div *ngIf="applicationSuccess && !applicationFailure" class="alert alert-success">
+              {{message}}
+            </div>
+          </div>
+          <form>
+            <div class="form-group">
+              <label class="control-label">Business Licence</label>
+              <input type="file" name="files" accept="application/pdf" id="fileUpload" (change) = "setupFileToUpload($event)" class="form-control" placeholder="License">
+              <h4 style="color: green">
+               
+              </h4>
+            </div>
+            <div class="form-group">
+              <label class="control-label">CPO/Scan File</label>
+              <input type="file" name="file" accept="application/pdf" id="fileUpload" (change) = "setupFileToUpload($event)" class="form-control" placeholder="CPO">
+              <h4 style="color: green">
+                
+              </h4>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Bid information document</label>
+              <input type="file" name="file" accept="application/pdf" id="fileUpload" (change) = "setupFileToUpload($event)" class="form-control" placeholder="Bid document">
+              <h4 style="color: green">
+                
+              </h4>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Your bidding amount</label>
+              <input [(ngModel)]="amount" name="amount" type="number" class="form-control" placeholder="Amount">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="doSubmitBidInfo()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <pagination-controls (pageChange)="p = $event" style="float:right"></pagination-controls>
+</div>
+
+<!-- <app-footer></app-footer> -->

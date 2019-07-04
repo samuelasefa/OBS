@@ -1,0 +1,49 @@
+<app-admin-navbar></app-admin-navbar>
+<app-admin></app-admin>
+<div class='header'>
+  <div class='header-wrapper'>
+    <div class='info'>
+      <div class='details'>
+        <div class='content-wrapper'>
+          <article>
+            <h2>
+              Edit your Profile
+              <span></span>
+            </h2>
+            <!-- Custom Success/Erro Message -->
+            <div class="row show-hide-message" *ngIf="message">
+              <div [ngClass]="messageClass">
+                {{ message }}
+              </div>
+            </div>
+            <form [formGroup]="editForm" (submit)="UpdateProfile()">
+              <div class="col-md-12">
+                  <div class="form-group">
+                    <input type="text" name="firstName"  class="form-control" id="firstName"
+                      placeholder="*FirstName"  formControlName="firstName" #fristName required/>
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="email" class="form-control" placeholder="*Last Name"
+                   formControlName="lastName" #lastName required />
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="email" class="form-control"  placeholder="*E-mail"
+                      formControlName="email" #email required />
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="phoneNumber" class="form-control"  placeholder="*PhoneNumber"
+                      formControlName="phoneNumber" #phoneNumber required />
+                  </div>
+                <button class="btn btn-outline-light btn-sm" (click)="UpdateProfile()"><i class="fa fa-save"></i>Update
+                  Profile</button>
+                <button class="btn btn-outline-light btn-sm" (click)="OnBack()"><i class=" fa
+                fa-backward"></i>Back</button>
+              </div>
+            </form>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <app-footer></app-footer> -->

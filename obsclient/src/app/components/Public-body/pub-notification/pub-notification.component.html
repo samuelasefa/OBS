@@ -1,0 +1,34 @@
+<app-navbar></app-navbar>
+<div class="card">
+
+  <div class="header text-center">
+    <p>WEL-COME to Online Bidding</p>
+    <h4>Notifications</h4>
+  </div>
+</div>
+
+<div class="PostedBid">
+  <div *ngFor="let notification of notifications">
+    <div class="panelBid">
+
+      <div *ngIf="notification.reason === 'bidOutdated'" class="card bg-warning">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-12">
+              <div>
+                <strong style="color: white" class="card-title">Bid Outdated!</strong>
+              </div>
+              <div class="right">
+                <p style="color: white">{{notification.dateTime | date: 'fullDate'}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">Your bid "{{notification.bid.bid_name}}" is outdated! please resolve as soon as posible
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

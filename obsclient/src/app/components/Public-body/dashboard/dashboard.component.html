@@ -1,0 +1,189 @@
+<app-navbar></app-navbar>
+<div class="card">
+  <div id='container'>
+    <div class='cell'><input type='search' class="form-control" placeholder='Search for bids......'
+        [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"></div>
+  </div>
+  <!-- <div class="header text-center">
+    <p>WEL-COME to Online Bidding</p>
+  </div> -->
+</div>
+<div class="PostedBid">
+  <!-- Custom Success/Error Message -->
+  <div class="row show-hide-message" *ngIf="message && newPost">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+  <div class="createbutton">
+    <button type="button" name="button" class="btn btn-warning" *ngIf="!newPost" (click)="BidForm()"><i
+        class="fa fa-plus"></i>New</button>
+    <button [disabled]="loadingBids" type="button" name="button" class="btn btn-secondary" *ngIf="!newPost"
+      (click)="reloadBids()"><span class="glyphicon glyphicon-repeat"></span>&nbsp;<i
+        class="fa fa-repeat"></i>Reload</button>
+  </div>
+  <!-- New Bid Form -->
+  <form [formGroup]="form" name="bidForm" *ngIf="newPost" class="newpost">
+    <!-- Title Input -->
+    <div class="form-group">
+      <label for="title">Bid Name</label>
+      <div [ngClass]="{'has-success': form.controls.bid_name.valid, 'has-error': form.controls.bid_name.dirty &&
+          form.controls.bid_name.errors}">
+        <!-- Title Input -->
+        <input type="text" name="bid_name" class="form-control" placeholder="*Bid Name" autocomplete="off"
+          formControlName="bid_name" />
+        <!-- Validation -->
+        <ul class="help-block">
+          <li *ngIf="form.controls.bid_name.dirty && form.controls.bid_name.errors?.required">This field is required.
+          </li>
+          <li *ngIf="(form.controls.bid_name.dirty && form.controls.bid_name.errors?.minlength) ||
+              (form.controls.bid_name.dirty && form.controls.bid_name.errors?.maxlength)">
+            Max length: 250, Min length: 5</li>
+          <li *ngIf="form.controls.bid_name.dirty && form.controls.bid_name.errors?.alphaNumericValidation">Must be a
+            letter
+            or number</li>
+        </ul>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="title">Bid Number</label>
+      <div [ngClass]="{'has-success': form.controls.bid_number.valid, 'has-error': form.controls.bid_number.dirty &&
+          form.controls.bid_number.errors}">
+        <!-- Title Input -->
+        <input type="number" name="bid_number" class="form-control" placeholder="*Bid Number" autocomplete="off"
+          formControlName="bid_number" />
+        <!-- Validation -->
+        <ul class="help-block">
+          <li *ngIf="form.controls.bid_number.dirty && form.controls.bid_number.errors?.required">This field is
+            required.
+          </li>
+          <li *ngIf="(form.controls.bid_number.dirty && form.controls.bid_number.errors?.minlength) ||
+              (form.controls.bid_number.dirty && form.controls.bid_number.errors?.maxlength)">
+            Max length: 50, Min length: 5</li>
+          <li *ngIf="form.controls.bid_number.dirty && form.controls.bid_number.errors?.alphaNumericValidation">Must
+            be a
+            letter
+            or number</li>
+        </ul>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="title">Bid Intial</label>
+      <div [ngClass]="{'has-success': form.controls.bid_inital.valid, 'has-error': form.controls.bid_inital.dirty &&
+          form.controls.bid_inital.errors}">
+        <!-- Title Input -->
+        <input type="number" name="bid_inital" class="form-control" placeholder="*Bid Initial" autocomplete="off"
+          formControlName="bid_inital" />
+        <!-- Validation -->
+        <ul class="help-block">
+          <li *ngIf="form.controls.bid_inital.dirty && form.controls.bid_inital.errors?.required">This field is
+            required.
+          </li>
+          <li *ngIf="(form.controls.bid_inital.dirty && form.controls.bid_inital.errors?.minlength) ||
+              (form.controls.bid_inital.dirty && form.controls.bid_inital.errors?.maxlength)">
+            Max length: 50, Min length: 5</li>
+          <li *ngIf="form.controls.bid_inital.dirty && form.controls.bid_inital.errors?.alphaNumericValidation">Must
+            be a
+            letter
+            or number</li>
+        </ul>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="title">Bid DeadLine Date</label>
+      <div [ngClass]="{'has-success': form.controls.bid_deadline.valid, 'has-error': form.controls.bid_deadline.dirty
+            && form.controls.bid_deadline.errors}">
+        <!-- Title Input -->
+        <input type="date" useValueAsDate name="bid_deadline" class="form-control" placeholder="*Bid DeadLine Date"
+          autocomplete="off" formControlName="bid_deadline" />
+        <!-- Validation -->
+        <ul class="help-block">
+          <li *ngIf="form.controls.bid_deadline.dirty && form.controls.bid_deadline.errors?.required">This field is
+            required.</li>
+          <li *ngIf="(form.controls.bid_deadline.dirty && form.controls.bid_deadline.errors?.minlength) ||
+                (form.controls.bid_deadline.dirty && form.controls.bid_deadline.errors?.maxlength)">
+            Max length: 50, Min length: 5</li>
+          <li *ngIf="form.controls.bid_deadline.dirty && form.controls.bid_deadline.errors?.alphaNumericValidation">
+            Must be a letter or number</li>
+        </ul>
+      </div>
+    </div>
+    <!-- Body Input -->
+    <div class="form-group">
+      <label for="body">Bid Description</label>
+      <div [ngClass]="{'has-success': form.controls.bid_desc.valid, 'has-error': form.controls.bid_desc.dirty &&
+          form.controls.bid_desc.errors}">
+        <!-- Body Input -->
+        <textarea name="bid_desc" rows="8" cols="80" placeholder="Bid Description" class="form-control"
+          formControlName="bid_desc"></textarea>
+        <!-- Validation -->
+        <ul class="help-block">
+          <li *ngIf="form.controls.bid_desc.dirty && form.controls.bid_desc.errors?.required">This field is required.
+          </li>
+          <li *ngIf="(form.controls.bid_desc.dirty && form.controls.bid_desc.errors?.minlength) ||
+              (form.controls.bid_desc.dirty
+              && form.controls.bid_desc.errors?.maxlength)">
+            Max length: 500, Min length: 5</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Go Back Button -->
+    <button [disabled]="processing" type="button" name="button" (click)="goBack()" class="btn btn-warning">
+      Back</button>
+    <!-- Submit Button -->
+    <button type="submit" name="button" class="btn btn-success" (click)="onBidSubmit()">Submit</button>
+  </form>
+  <!-- New Blog Form -->
+  <!-- [disabled]="processing || !form.valid" -->
+  <!-- start panel -->
+
+  <div class="panelBid">
+    <div *ngIf="!newPost">
+      <div class="card bg-defult"
+        *ngFor="let bid of bidPosts | searchbids : searchText | paginate: {itemsPerPage: 2, currentPage: p}">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-12">
+              <div>
+                <strong class="card-title">{{ bid.bid_name  }}</strong>
+              </div>
+              <div class="right">
+                <!-- Edit Button -->
+                <a><button type="button" *ngIf="email === bid.userType && !bid.isReolved && !isOutOfDate(bid.bid_deadline)" name="button" class="btn btn-sm btn-secondary"
+                    [routerLink]="['/edit-bid/',bid._id]"><i class="fa fa-edit"></i>Edit</button></a>
+                <!-- Delete Button -->
+                <a><button type="button" name="button" [routerLink]="['/delete-bid/', bid._id]"
+                    *ngIf="email === bid.userType && !bid.isReolved && !isOutOfDate(bid.bid_deadline)" class="btn btn-sm btn-danger"><i
+                      class="fa fa-trash"></i>Cancel</button></a>
+                <a><button type="button" name="button" *ngIf="email === bid.userType && !isOutOfDate(bid.bid_deadline)"
+                    class="btn btn-sm btn-info"><i class="fa fa-info"></i>Open</button></a>
+                <a><button type="button" name="button" *ngIf="email === bid.userType && isOutOfDate(bid.bid_deadline)"
+                    class="btn btn-sm btn-warning"><i class="fa fa-info"></i>closed</button></a>
+                <a *ngIf="!bid.isResolved && isOutOfDate(bid.bid_deadline)"><button
+                    (click)="navigateToReviewApplications(bid._id) + sendNotification()" class="btn btn-sm
+                    btn-success">Review
+                    applications</button></a>
+                <a *ngIf="bid.isResolved && isOutOfDate(bid.bid_deadline)"><button
+                    (click)="navigateToSummary(bid._id)" class="btn btn-sm btn-info">View summary</button></a>
+                <!--  -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">&nbsp;Bid Number:&nbsp;{{ bid.bid_number }}</li>
+          <li class="list-group-item">&nbsp;Bid Description:&nbsp;{{ bid.bid_desc }}</li>
+          <li class="list-group-item">&nbsp;Bid Initial:&nbsp;{{ bid.bid_inital }}</li>
+          <li class="list-group-item"><strong>&nbsp;Bid Posted
+              Date:&nbsp;</strong>&nbsp;{{bid.bid_postdate  | date:'MMM dd, yyyy' }}
+          </li>
+          <li class="list-group-item"><strong>&nbsp;Bid DeadLine
+              Date:-</strong>&nbsp;{{bid.bid_deadline  | date:'MMM dd, yyyy' }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br />
+  <pagination-controls (pageChange)="p = $event" style="float:right"></pagination-controls>
+</div>

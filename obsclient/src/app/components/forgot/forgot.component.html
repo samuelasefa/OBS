@@ -1,0 +1,26 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <!-- Custom Success/Error Message -->
+  <div id="login-box">
+    <form [formGroup]="form">
+      <div class="row show-hide-message">
+        <div [ngClass]="messageClass">
+          {{ message }}
+        </div>
+      </div>
+      <div class="left">
+        <h1 class="lable text-center">Forgot Password</h1>
+        <div
+          [ngClass]="{'has-error':(form.controls.email.errors && form.controls.email.dirty),'has-success':!form.controls.email.errors}">
+          <input type="text" class="form-control" name="email" formControlName="email" placeholder="E-mail*"
+            autocomplete="off">
+          <ul class="help-block">
+            <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">email field is required</li>
+          </ul>
+        </div>
+        <input [disabled]="!form.valid || processing" type="submit" (click)="OnForgotPassword()" value="Submit" />
+      </div>
+    </form>
+  </div>
+</div>
+<app-footer></app-footer>

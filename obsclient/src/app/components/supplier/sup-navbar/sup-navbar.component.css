@@ -1,0 +1,40 @@
+.navbar {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: .9rem;
+  letter-spacing: .1rem;
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.navbar-brand img {
+  height: 2rem;
+}
+
+.navbar-nav li {
+  padding-right: .7rem;
+}
+
+.navbar-dark .navbar-nav .navbar-link {
+  color: white;
+  padding-top: .8rem;
+}
+
+.navbar-dark .navbar-nav .navbar-link.active,
+.navbar-dark .navbar-nav .navbar-link:hover {
+  color: #1ebba3;
+}
+@media (max-width: 767px) {
+.navbar {
+  text-transform: uppercase;
+  font-size: .4rem;
+  letter-spacing: .05rem;
+}
+.navbar-brand img {
+  height: 1rem;
+}
+.navbar-nav li {
+  padding-right: .3rem;
+}
+
+
+}

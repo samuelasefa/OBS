@@ -1,0 +1,75 @@
+{
+  "extends": "tslint:recommended",
+  "rulesDirectory": [
+    "codelyzer"
+  ],
+  "rules": {
+    "array-type": false,
+    "arrow-parens": false,
+    "deprecation": {
+      "severity": "warn"
+    },
+    "import-blacklist": [
+      false,
+      "rxjs/Rx"
+    ],
+    "interface-name": false,
+    "max-classes-per-file": false,
+    "max-line-length": [
+      false,
+      140
+    ],
+    "member-access": false,
+    "member-ordering": [
+      false,
+      {
+        "order": [
+          "static-field",
+          "instance-field",
+          "static-method",
+          "instance-method"
+        ]
+      }
+    ],
+    "no-consecutive-blank-lines": false,
+    "no-console": [
+      false,
+      "debug",
+      "info",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
+    "no-empty": false,
+    "no-inferrable-types": [
+      false,
+      "ignore-params"
+    ],
+    "no-non-null-assertion": false,
+    "no-redundant-jsdoc": false,
+    "no-switch-case-fall-through": false,
+    "no-use-before-declare": false,
+    "no-var-requires": false,
+    "object-literal-key-quotes": [
+      false,
+      "as-needed"
+    ],
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "quotemark": [
+      false,
+      "single"
+    ],
+    "trailing-comma": false,
+    "no-output-on-prefix": false,
+    "use-input-property-decorator": false,
+    "use-output-property-decorator": false,
+    "use-host-property-decorator": false,
+    "no-input-rename": false,
+    "no-output-rename": false,
+    "use-life-cycle-interface": false,
+    "use-pipe-transform-interface": false,
+    "component-class-suffix": false,
+    "directive-class-suffix": false
+  }
+}

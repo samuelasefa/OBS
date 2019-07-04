@@ -1,0 +1,45 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="row">
+  <div class="col-md-3">
+    <app-admin></app-admin>
+  </div>
+  <div style="margin-top: 2%" class="col-md-8">
+    <section class="card">
+      <h2>Bid applications</h2>
+
+      <div *ngIf="respSuccess" class="aler alert-success">
+        {{message}}
+      </div>
+
+      <div *ngIf="respFailure" class="aler alert-danger">
+        {{message}}
+      </div>
+
+      <table>
+        <tr>
+          <th>Applier</th>
+          <th>Bid</th>
+          <th>Transaction Number</th>
+          <th>Time of application</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let application of bidApplications; let i = index">
+          <td>{{application.applier.companyName}}</td>
+          <td>{{application.bid.bid_name}}</td>
+          <td>{{application.transaction}}</td>
+          <td>{{application.timeOfApplication | date:'fullDate'}}</td>
+          <td><button (click)="acceptApplication(application._id, i)"
+              class="btn btn-success btn-sm">Accept</button><button (click)="rejectApplication(application._id, i)"
+              class="btn btn-danger btn-sm">Reject</button></td>
+
+        </tr>
+        <!-- <tr>
+          <td>Public</td>
+          <td>5769</td>
+          <td>2517</td>
+          <td>Jan 1, 2014</td>
+        </tr> -->
+      </table>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<app-sup-navbar></app-sup-navbar>
+<div class="continer">
+  <div class="card text-center" style="height: 100%">
+    <h4 class="page-header"><strong>Bid Modification</strong></h4>
+  </div>
+  <!-- Custom Success/Erro Message -->
+  <div class="row show-hide-message" *ngIf="message">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+  <!-- Edit Blog Form -->
+  <form *ngIf="!loading">
+    <div class="form-group">
+      <label for="Bid_name">Bid Name</label>
+      <input type="text" [disabled]="processing" name="bid_name" class="form-control" placeholder="*Bid Name"
+        [(ngModel)]="bid.bid_name" />
+    </div>
+    <div class="form-group">
+      <label for="BidNumber">Bid Number</label>
+      <input type="text" [disabled]="processing" name="bid_number" class="form-control" placeholder="*Bid Number"
+        [(ngModel)]="bid.bid_number" />
+    </div>
+    <div class="form-group">
+      <label for="BidPostDate">Bid PostDate</label>
+      <input type="date" [disabled]="processing" name="bid_postdate" class="form-control" placeholder="*Bid Post Date"
+        [(ngModel)]="bid.bid_postdate" />
+    </div>
+    <div class="form-group">
+      <label for="BidDeadLineDate">Bid Deadline</label>
+      <input type="date" [disabled]="processing" name="bid_deadline" class="form-control"
+        placeholder="*Bid Dead Line Date" [(ngModel)]="bid.bid_deadline" />
+    </div>
+    <div class="form-group">
+      <label for="BidDescription">Bid Description</label>
+      <textarea [disabled]="processing" name="bid_desc" rows="8" cols="80" [(ngModel)]="bid.bid_desc"
+        class="form-control" placeholder="Bid Description">
+    </textarea>
+      <a [routerLink]="['/delete-bid', bid._id]"><button type="button" [disabled]="processing" name="button"
+          class="btn btn-danger">
+          Delete
+        </button></a>
+      <button type="button" [disabled]="processing" name="button" class="btn btn-warning"
+        (click)="goBack()">Back</button>
+      <button type="button" [disabled]="processing" name="button" class="btn btn-success"
+        (click)="updateBidSubmit()">Update</button>
+    </div>
+  </form>
+
+</div>
+<app-footer></app-footer>

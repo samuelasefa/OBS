@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <!-- Custom Success/Error Message -->
+  <div id="login-box">
+    <form [formGroup]="form">
+      <div class="row show-hide-message">
+        <div [ngClass]="messageClass">
+          {{ message }}
+        </div>
+      </div>
+      <div class="left">
+        <h1 class="lable text-center">Reset Password</h1>
+        <div
+          [ngClass]="{'has-error':(form.controls.password.errors && form.controls.password.dirty),'has-success':!form.controls.username.errors}">
+          <input type="password" class="form-control" name="password" formControlName="password"
+            placeholder="password*" autocomplete="off">
+          <ul class="help-block">
+            <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">password field
+              is required</li>
+          </ul>
+        </div>
+         <div
+           [ngClass]="{'has-error':(form.controls.confirm.errors && form.controls.confirm.dirty),'has-success':!form.controls.username.errors}">
+           <input type="password" class="form-control" name="confirm" formControlName="confirm"
+             placeholder="confirm-password*" autocomplete="off">
+           <ul class="help-block">
+             <li *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty">password field
+               is required</li>
+           </ul>
+         </div>
+        <input [disabled]="!form.valid || processing" type="submit" value="Update Password" />
+      </div>
+    </form>
+  </div>
+  <app-footer></app-footer>

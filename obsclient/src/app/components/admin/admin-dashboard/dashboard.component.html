@@ -1,0 +1,34 @@
+<app-admin-navbar></app-admin-navbar>
+<div class="row">
+  <div class="col-lg-3">
+    <app-admin></app-admin>
+  </div>
+  <div class="col-lg-9" id="dash">
+    <div class="card-header">
+      <strong><h2>Admin</h2></strong>
+      <!-- <li class="fa fa-database fa-4x"></li>&nbsp;&nbsp;10 -->
+    <div id="accordion">
+      <div class="card" *ngFor="let apply of appliedbid">
+        <div class="card-header" id="heading">
+          <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse"
+              aria-expanded="false" aria-controls="collapseThree">
+              {{ apply.companyname }}&nbsp;:&nbsp;has paid for the bid document
+            </button>
+          </h5>
+        </div>
+        <div id="collapse" class="collapse" aria-labelledby="heading" data-parent="#accordion">
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Transaction Number:{{apply.transaction}}&nbsp;</li>
+            </ul>
+          </div>
+          <div class="btn">
+            <input type="submit" value="permit" (click)="OnPermit()" class="btn btn-outline-primary" />
+            <input type="submit" value="deny" class='btn btn-outline-danger' (click)="OnDeny()" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

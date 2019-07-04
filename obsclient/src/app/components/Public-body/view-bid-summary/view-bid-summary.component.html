@@ -1,0 +1,45 @@
+<app-navbar></app-navbar>
+<div class="card">
+  <div id='container'>
+    <div class='cell'><input type='search' class="form-control" placeholder='Search for bids......'
+        [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"></div>
+  </div>
+  <div class="header text-center">
+    <p>WEL-COME to Online Bidding</p>
+
+  </div>
+</div>
+
+<div style="margin: 2%" class="container-fluid">
+  <div class="container">
+    <div class="col-md-12">
+      <table class="table">
+        <tr>
+          <th colspan="2">{{bid.bid_name}} bid summary</th>
+          <th> Winning value {{getWinningValue()}} ETB</th>
+        </tr>
+        <tr>
+          <td colspan="2">
+            Total Applications ({{applications.top.length + applications.medium.length + applications.least.length}})
+          </td>
+          <td>
+            Winner
+          </td>
+          <td>{{bid.winner.companyName}}</td>
+        </tr>
+        <tr>
+          <td>Top appliers</td>
+          <td>{{applications.top.length}}</td>
+        </tr>
+        <tr>
+          <td>Medium appliers</td>
+          <td>{{applications.medium.length}}</td>
+        </tr>
+        <tr>
+          <td>Least appliers</td>
+          <td>{{applications.least.length}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

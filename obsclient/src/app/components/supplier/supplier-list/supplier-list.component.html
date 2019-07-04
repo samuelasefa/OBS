@@ -1,0 +1,28 @@
+<app-sup-navbar></app-sup-navbar>
+<div class="row">
+  <div class="col-md-12">
+    <section class="card">
+      <h2 class="header text-center">Supplier List</h2>
+        <!-- <div class='cell'><input type='search' class="form-control" placeholder='Search for Supplier......'
+            [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"></div> -->
+      <table>
+        <tr>
+          <th>Company Name</th>
+          <th>UserName</th>
+          <th>TIN NO.</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+        </tr>
+          <tr *ngFor="let user of suplists | searchlist : searchText | paginate: {itemsPerPage: 20, currentPage: p}">
+            <td>{{user.supplier.companyName}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.supplier.tinNumber}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.phoneNumber}}</td>
+          </tr>
+      </table>
+    </section>
+  <pagination-controls (pageChange)="p = $event" style="float:right"></pagination-controls>
+  </div>
+</div>
+<app-footer></app-footer>

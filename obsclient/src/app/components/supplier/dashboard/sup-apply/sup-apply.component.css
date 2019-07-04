@@ -1,0 +1,28 @@
+.continer {
+  margin: 50px auto;
+  max-width: 900px;
+  box-shadow: 15px;
+  background-color: white;
+  padding: 75px;
+  border-radius: 12px;
+}
+
+button {
+  margin: 3px;
+}
+
+/* ----------- Relevant Code Below ----- */
+div#container {
+  width: 600px;
+  margin: 80px auto;
+}
+/* profile css */
+.PostedBid {
+  margin: 0px auto;
+  max-width: 800px;
+}
+
+.panelBid {
+  margin: 0px auto;
+  max-width: 800px;
+}

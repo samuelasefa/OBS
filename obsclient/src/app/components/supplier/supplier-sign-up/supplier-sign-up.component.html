@@ -1,0 +1,89 @@
+<app-sup-navbar></app-sup-navbar>
+<div class="container-fluid">
+  <form [formGroup]="form">
+
+    <div id="login-box">
+      <!-- Custom Success/Error Message -->
+      <div class="row show-hide-message" *ngIf="message">
+        <div [ngClass]="messageClass">
+          {{ message }}
+        </div>
+      </div>
+      <div class="left">
+        <h1>Sign up as Supplier</h1>
+        <div *ngIf="unauthorized" class="row">
+          <div class="alert alert-danger">
+            all input field required to be field!
+          </div>
+        </div>
+        <div
+          [ngClass]="{'has-error':(form.controls.companyname.errors && form.controls.companyname.dirty),'has-success':!form.controls.companyname.errors}">
+          <input type="text" class="form-control" name="companyname" formControlName="companyname" placeholder="Company Name*"
+            autocomplete="off">
+            <!-- validation -->
+          <ul class="help-block">
+            <li *ngIf="form.controls.companyname.errors?.required && form.controls.companyname.dirty">Company Name is required</li>
+            <li
+              *ngIf="form.controls.companyname.errors?.minlength || form.controls.companyname.errors?.maxlength">
+              minimam charchter 8 and maximum charchter 30</li>
+          </ul>
+        </div>
+        <div [ngClass]="{'has-error':(form.controls.tin_no.errors &&
+              form.controls.tin_no.dirty),'has-success':!form.controls.tin_no.errors}">
+          <input type="number" class="form-control" name="tin_no" formControlName="tin_no" placeholder="TIN No*" autocomplete="off">
+          <ul class="help-block">
+            <li *ngIf="form.controls.tin_no.errors?.required && form.controls.tin_no.dirty">
+              Tin Number is required</li>
+              <li *ngIf="form.controls.tin_no.errors?.minlength || form.controls.tin_no.errors?.maxlength">
+                tin number must be equal to 10</li>
+          </ul>
+        </div>
+                <div [ngClass]="{'has-error':(form.controls.email.errors &&
+              form.controls.email.dirty),'has-success':!form.controls.email.errors}">
+                  <input type="email" class="form-control" name="email" formControlName="email" placeholder="E-mail*"
+                    autocomplete="off">
+                  <ul class="help-block">
+                    <li *ngIf="form.controls.email.errors?.required && form.controls.email.dirty">
+                      E-mail is required</li>
+                    <li *ngIf="form.controls.email.errors?.minlength || form.controls.email.errors?.maxlength">
+                      minimam charchter 8 and maximum charchter 30</li>
+                    <li *ngIf="form.controls.email.errors?.validateEmail && form.controls.email.dirty">
+                      This must be valid email
+                    </li>
+
+                  </ul>
+                </div>
+        <div [ngClass]="{'has-error':(form.controls.phone_no.errors &&
+              form.controls.phone_no.dirty),'has-success':!form.controls.phone_no.errors}">
+          <input type="number" class="form-control" name="phone_no" formControlName="phone_no" placeholder="Phone Number*"
+            autocomplete="off">
+          <ul class="help-block">
+            <li *ngIf="form.controls.phone_no.errors?.required && form.controls.phone_no.dirty">
+              Phone Number is required</li>
+          </ul>
+        </div>
+           <div [ngClass]="{'has-error':(form.controls.username.errors &&
+              form.controls.username.dirty),'has-success':!form.controls.username.errors}">
+             <input type="text" class="form-control" name="username" formControlName="username" placeholder="Username*"
+               autocomplete="off">
+             <ul class="help-block">
+               <li *ngIf="form.controls.username.errors?.required && form.controls.username.dirty">
+                 username are required</li>
+             </ul>
+           </div>
+              <div [ngClass]="{'has-error':(form.controls.password.errors &&
+              form.controls.password.dirty),'has-success':!form.controls.password.errors}">
+                <input type="password" class="form-control" name="password" formControlName="password" placeholder="Password*"
+                  autocomplete="off">
+                <ul class="help-block">
+                  <li *ngIf="form.controls.password.errors?.required && form.controls.password.dirty">
+                    Password is required</li>
+                </ul>
+              </div>
+            <input type="submit" name="signup_submit" value="Signup" (click)="OnRegister()" />
+  <p>Already have an account ?</p><a [routerLink]="['/login']" routerLinkActive="active">Login</a>
+      </div>
+    </div>
+  </form>
+</div>
+<app-footer></app-footer>

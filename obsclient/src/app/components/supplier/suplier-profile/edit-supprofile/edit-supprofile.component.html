@@ -1,0 +1,50 @@
+<app-sup-navbar></app-sup-navbar>
+<div class='header'>
+  <div class='header-wrapper'>
+    <div class='info'>
+      <div class='details'>
+        <div class='content-wrapper'>
+          <article>
+            <h2>
+              Edit your Profile
+              <span></span>
+            </h2>
+            <!-- Custom Success/Erro Message -->
+            <div class="row show-hide-message" *ngIf="message">
+              <div [ngClass]="messageClass">
+                {{ message }}
+              </div>
+            </div>
+            <form [formGroup]="form" (submit)="UpdateProfile()">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" name="companyname" class="form-control" placeholder="*Companyname"
+                    formControlName="companyname" />
+                </div>
+                <div class="form-group">
+                  <input type="text" name="tin_no" class="form-control" placeholder="*Tin No."
+                    formControlName="tin_no" />
+                </div>
+                <div class="form-group">
+                  <input type="text" name="phone_no" class="form-control" placeholder="*Phone Number." formControlName="phone_no" />
+                </div>
+                <div class="form-group">
+                  <input type="text" name="username" class="form-control" placeholder="*UserName." formControlName="username" />
+                </div>
+                <div class="form-group">
+                  <input type="text" name="email" class="form-control" placeholder="*Email"
+                    formControlName="email" />
+                </div>
+                <button class="btn btn-outline-light btn-sm" (click)="UpdateProfile()"><i class="fa fa-save"></i>Update
+                  Profile</button>
+                <button class="btn btn-outline-light btn-sm" (click)="OnBack()"><i class=" fa
+                fa-backward"></i>Back</button>
+              </div>
+            </form>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

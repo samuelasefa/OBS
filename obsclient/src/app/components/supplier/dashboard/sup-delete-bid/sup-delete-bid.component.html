@@ -1,0 +1,56 @@
+<app-sup-navbar></app-sup-navbar>
+  <h5 class="card-header">Cancle Bid</h5>
+<div class="PostedBid">
+  <!-- Custom Success/Error Message -->
+  <div class="row show-hide-message" *ngIf="message">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+
+  <!-- Modal Confirmation Window -->
+  <div class="col-md-6" *ngIf="foundBid">
+
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <button type="button" name="button" class="close" data-dismiss="modal">&times;</button>
+
+        <h4 class="modal-title">Confirm</h4>
+      </div>
+
+
+      <div class="modal-body">
+        <p>Are you sure you would like to delete this Bid?</p>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="processing" type="button" name="button" class="btn btn-success"
+          (click)="deletebid()">Yes</button>
+        <a routerLink="/dashboard"><button [disabled]="processing" type="button" name="button"
+            class="btn btn-danger">No</button></a>
+      </div>
+    </div>
+    <br />
+
+    <!-- Panel -->
+    <div class="card card-defualt">
+      <!-- Panel Heading -->
+      <div class="card-heading">
+        <!-- Panel Title -->
+        <h3 class="card-title">&nbsp;&nbsp;&nbsp; {{ bid.bid_name }}</h3>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">&nbsp;Bid Number:&nbsp;{{ bid.bid_number }}</li>
+        <li class="list-group-item">&nbsp;Bid Description:&nbsp;{{ bid.bid_desc }}</li>
+        <li class="list-group-item"><strong>&nbsp;Bid Posted
+            Date:&nbsp;</strong>&nbsp;{{bid.bid_postdate  | date:'MMM dd, yyyy' }}
+        </li>
+        <li class="list-group-item"><strong>&nbsp;Bid DeadLine
+            Date:-</strong>&nbsp;{{bid.bid_deadline  | date:'MMM dd, yyyy' }}</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+<app-footer></app-footer>

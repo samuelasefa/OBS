@@ -1,0 +1,67 @@
+<app-sup-navbar></app-sup-navbar>
+<div class="card">
+  <div id='container'>
+    <div class='cell'><input type='search' class="form-control" placeholder='Search for bids......'
+        [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"></div>
+  </div>
+  <!-- <div class="header text-center">
+    <p>WEL-COME to Online Bidding</p>
+  </div> -->
+</div>
+<div class="PostedBid">
+  <!-- Custom Success/Error Message -->
+  <div class="row show-hide-message" *ngIf="message && newPost">
+    <div [ngClass]="messageClass">
+      {{ message }}
+    </div>
+  </div>
+
+  <!-- New Bid Form -->
+  <div class="panelBid">
+    <div *ngIf="!newPost">
+      <div class="card bg-defult"
+        *ngFor="let bid of bidPosts | searchbids : searchText | paginate: {itemsPerPage: 2, currentPage: p}">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-12">
+              <div>
+                <strong class="card-title">{{ bid.bid_name }}</strong>
+              </div>
+              <div class="right">
+                <!-- Edit Button -->
+                <a><button type="button" *ngIf="email === bid.createdBy" name="button" class="btn btn-sm btn-info"
+                    [routerLink]="['/supedit-bid/',bid._id]"><i class="fa fa-edit"></i>Edit</button></a>
+                <a><button type="button" name="button" class="btn btn-sm btn-success"
+                    [routerLink]="['/supapply/', bid. _id]" routerLinkActive="active" *ngIf="email !== bid.userType"><i
+                      class="fa fa-check"></i>Apply</button></a>
+                <a> <button class="btn btn-info btn-sm">
+                    <li class="fa fa-info"></li>Open
+                  </button></a>
+
+                <!--  -->
+                <!-- Delete Button -->
+                <!-- Delete Button -->
+                <a><button type="button" name="button" [routerLink]="['/supdelete-bid/', bid._id]"
+                    *ngIf="email === bid.userType" class="btn btn-sm btn-danger"><i
+                      class="fa fa-trash"></i>Delete</button></a>
+                <!--  -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">&nbsp;Bid Number:&nbsp;{{ bid.bid_number }}</li>
+          <li class="list-group-item">&nbsp;Bid Description:&nbsp;{{ bid.bid_desc }}</li>
+          <li class="list-group-item">&nbsp;Bid intial:&nbsp;{{ bid.bid_inital }}</li>
+          <li class="list-group-item"><strong>&nbsp;Bid Posted
+              Date:-&nbsp;</strong>&nbsp;{{bid.bid_postdate  | date:'MMM dd, yyyy' }}
+           </li>
+          <li class="list-group-item"><strong>&nbsp;Bid DeadLine
+              Date:-</strong>&nbsp;{{bid.bid_deadline  | date:'MMM dd, yyyy' }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <br />
+  <pagination-controls (pageChange)="p = $event" style="float:right"></pagination-controls>
+</div>
