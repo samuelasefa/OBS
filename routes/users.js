@@ -498,7 +498,7 @@ router.post('/reset/:token', function (req, res) {
       smtpTransport.sendMail(mailOptions, function (err) {
         res.json({
           success: false,
-          message: "Success! Your password has been changed"
+          status: "Success! Your password has been changed"
         });
         done(err);
       });
@@ -506,7 +506,7 @@ router.post('/reset/:token', function (req, res) {
   ], function (err) {
     // res.redirect('/');
     res.json({
-      success:false, message:"redirect to page"
+      success:false, status:"redirect to page"
     })
   });
 });
