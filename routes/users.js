@@ -355,7 +355,7 @@ router.post('/forgot', function (req, res, next) {
     },
     function (token, done) {
       User.findOne({
-        // username: req.body.email
+        email: req.body.email
       }, function (err, user) {
         console.log(user);
         if (!user) {
@@ -373,6 +373,9 @@ router.post('/forgot', function (req, res, next) {
     },
     function (token, user, done) {
       var smtpTransport = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
         service: 'Gmail',
         auth: {
           user: 'samuelmam44@gmail.com',
@@ -380,12 +383,12 @@ router.post('/forgot', function (req, res, next) {
         }
       });
       var mailOptions = {
-        to: user.username,
+        to: user.email,
         from: 'samuelmam44@gmail.com',
         subject: 'Online Bidding System Password Reset session',
         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+          'http://localhost:4200/reset/'+ token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
       smtpTransport.sendMail(mailOptions, function (err) {
@@ -404,29 +407,29 @@ router.post('/forgot', function (req, res, next) {
   });
 });
 
-// -------------to reset password*-------
-router.get('/reset/:token', function (req, res) {
-  User.findOne({
-    resetPasswordToken: req.params.token,
-    resetPasswordExpires: {
-      $gt: Date.now()
-    }
-  }, function (err, user) {
-    if (!user) {
-      res.json({
-        success: false,
-        message: "Password reset token is invalid or has expired."
-      })
-      return false;
-    }
-    res.send(
-      token = req.params.token
-    );
-    // res.render('reset', {
-    //   token: req.params.token
-    // });
-  });
-});
+// // -------------to reset password*-------
+// router.get('/reset/:token', function (req, res) {
+//   User.findOne({
+//     resetPasswordToken: req.params.token,
+//     resetPasswordExpires: {
+//       $gt: Date.now()
+//     }
+//   }, function (err, user) {
+//     if (!user) {
+//       res.json({
+//         success: false,
+//         message: "Password reset token is invalid or has expired."
+//       })
+//       return false;
+//     }
+//     res.send(
+//       token = req.params.token
+//     );
+//     // res.render('reset', {
+//     //   token: req.params.token
+//     // });
+//   });
+// });
 
 router.post('/reset/:token', function (req, res) {
   async.waterfall([
@@ -442,25 +445,38 @@ router.post('/reset/:token', function (req, res) {
             success: false,
             message: "Password reset token is invalid or has expired."
           })
-          return res.redirect('back');
+          // return res.redirect('back');
+          // res.js
         }
         if (req.body.password === req.body.confirm) {
           user.setPassword(req.body.password, function (err) {
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
 
-            user.save(function (err) {
-              req.loggedIn(user, function (err) {
-                done(err, user);
-              });
-            });
+            user.save()
+              .then(
+                updatedUser => {
+                  res.json({
+                    success: true,
+                    message: 'Successfully updated your password'
+                  })
+                }
+              )
+              .catch(
+                err => {
+                  res.json({
+                    success: false,
+                    message: 'Error while updating your password'
+                  })
+                }
+              );
           })
         } else {
           res.json({
             success: false,
             message: "Passwords do not match."
           })
-          return res.redirect('back');
+          // return res.redirect('back');
         }
       });
     },
@@ -488,6 +504,9 @@ router.post('/reset/:token', function (req, res) {
       });
     }
   ], function (err) {
-    res.redirect('/');
+    // res.redirect('/');
+    res.json({
+      success:false, message:"redirect to page"
+    })
   });
 });

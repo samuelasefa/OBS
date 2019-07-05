@@ -1,15 +1,26 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
 
 /* custome message display css */
-
-#login-box {
+html{
+  background-image: url('/../assets/images/744.jpg');
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+  }
+.login-box {
   position: relative;
-  margin: 8% auto;
+  margin: 4.2% auto;
   width: 600px;
   height: 450px;
   background: #FFF;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+form{
+  margin: 4.2% auto;
+  width: 600px;
+  height: 450px;
 }
 
 .left {

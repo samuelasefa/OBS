@@ -15,7 +15,8 @@ export class SearchPipe  implements PipeTransform {
         bid.bid_name.toLowerCase().indexOf(searchText.toLowerCase()) >
           -1 ||
         bid.bid_postdate.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
-        bid.bid_deadline.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+        bid.bid_deadline.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+        bid.bid_description.toLowerCase().indexOf(searchText.toLowerCase()) > -1
       );
     });
   }

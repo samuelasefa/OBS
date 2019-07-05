@@ -49,7 +49,7 @@ const routes: Routes = [
     component: PostEvalatutionComponent
   },
   {
-    path: "reset",
+    path: "reset/:token",
     component: ResetComponent
   },
   {

@@ -99,8 +99,13 @@ export class AuthService {
     return this.http.post(this.domain + 'users/allusers', this.options).map(res => res.json());
   }
   // send forget email to original gmail
-  sendForgotEmail() {
-    return this.http.post(this.domain + 'users/forgot', this.options).map(res => res.json());
+  sendForgotEmail(email) {
+    return this.http.post(this.domain + 'users/forgot', email).map(res => res.json());
+  }
+  updatePassword(token, passwords){
+    return this.http.post(this.domain + 'users/reset/'+token, passwords).map(
+      res => res.json()
+    )
   }
   // Function to get user's profile data
   getProfile() {

@@ -25,10 +25,10 @@ export class ForgotComponent implements OnInit {
   }
   OnForgotPassword() {
     const credential = {
-      username: this.form.get("email").value // Username input field
+      email: this.form.get("email").value // Username input field
     };
     console.log(credential);
-    this.authService.sendForgotEmail().subscribe(data => {
+    this.authService.sendForgotEmail(credential).subscribe(data => {
       console.log(data);
       if (!data.success) {
         this.messageClass = "alert alert-danger";
